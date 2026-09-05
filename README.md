@@ -1,5 +1,8 @@
 # AIGate — AI Procurement, Governance & Value Control Plane
 
+[![Python CI](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/backend-ci.yml)
+[![Interactive Web CI](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/frontend-ci.yml)
+
 > **From AI request to approved, governed and measurable production use.**
 
 AIGate is a zero-key, portfolio-safe control plane for screening proposed AI systems, identifying evidence gaps, routing approvals, evaluating vendor readiness and quantifying business value. The central design rule is simple: **model reasoning may advise; deterministic policy owns authority.**
@@ -10,9 +13,9 @@ German and European organizations increasingly need to operationalize AI rather 
 
 AIGate turns that lifecycle into an inspectable product workflow.
 
-## What works
+## Verification snapshot
 
-| Capability | Status |
+| Capability | Verified state |
 |---|---|
 | Structured AI use-case intake | Working |
 | Risk-band screening | Working, deterministic |
@@ -26,13 +29,17 @@ AIGate turns that lifecycle into an inspectable product workflow.
 | Python FastAPI backend | Working |
 | Local SQLite AI registry + audit event | Working |
 | Zero-key Next.js backend | Working |
-| Shared 32-case evaluation set | Working |
-| Python test suite | 41 tests passing locally |
-| TypeScript engine suite | 7 tests passing locally |
-| Python ↔ TypeScript fixture + canonical output parity | Tested |
+| Shared synthetic evaluation | **32/32 risk-band + 32/32 decision cases** |
+| Python test suite | **41/41 passed in GitHub Actions** |
+| TypeScript engine suite | **7/7 passed in GitHub Actions** |
+| Python ↔ TypeScript canonical output parity | **32/32 cases verified** |
+| Next.js production build + HTTP smoke | **Passed in GitHub Actions** |
+| FastAPI production smoke | **Passed in GitHub Actions** |
+| Docker image build | **Passed in GitHub Actions** |
 | Responsive interactive UI | Working |
-| Docker | Working |
 | Vercel configuration | Ready; deploy `frontend/` |
+
+The 32-case result is a **regression result on a checked-in, hand-authored synthetic fixture**, not a production-accuracy or legal-classification claim.
 
 ## Decision model
 
@@ -92,8 +99,9 @@ The app includes:
 - approval-route view
 - interactive React Three Fiber evidence visualization
 - original GLSL policy core
+- downloadable JSON evidence pack
 - local browser history
-- reduced-motion and mobile layouts
+- reduced-motion, WebGL fallback and mobile layouts
 
 ## Python API
 
@@ -127,7 +135,7 @@ See [docs/market-context.md](docs/market-context.md), [docs/architecture.md](doc
 
 ## Free-runtime posture
 
-No database, hosted model, paid API, analytics platform or authentication service is required for the community/portfolio app. Local execution is fully self-contained after installing open-source dependencies. Vercel Hobby can be used for a public personal demo subject to Vercel's current plan limits and terms.
+No hosted model, paid API, analytics platform or authentication service is required for the community/portfolio app. The Python community mode uses local SQLite, while the public Next.js mode is stateless on the server and keeps recent runs in the browser. Local execution is self-contained after installing open-source dependencies. Vercel Hobby can be used for a public personal demo subject to Vercel's current plan limits and terms.
 
 ## Scope
 
