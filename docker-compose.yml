@@ -1,0 +1,8 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      AIGATE_LLM_BASE_URL: ""
+      AIGATE_LLM_MODEL: ""

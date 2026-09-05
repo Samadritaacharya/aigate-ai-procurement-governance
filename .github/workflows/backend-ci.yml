@@ -1,0 +1,52 @@
+name: Python CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade pip
+      - run: pip install -r requirements.txt
+      - name: Compile
+        run: python -m compileall -q src api.py scripts tests
+      - name: Unit and governance tests
+        run: pytest
+      - name: Reproducible evaluation
+        run: |
+          python scripts/evaluate.py > /tmp/eval.json
+          python - <<'PY'
+          import json
+          x=json.load(open('/tmp/eval.json'))
+          assert x['cases']==32
+          assert x['risk_band_accuracy']==1.0
+          assert x['decision_accuracy']==1.0
+          print('32-case evaluation passed')
+          PY
+      - name: FastAPI smoke
+        run: |
+          uvicorn api:app --host 127.0.0.1 --port 8000 >/tmp/aigate-api.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          python - <<'PY'
+          import json,time,urllib.request
+          for _ in range(40):
+              try:
+                  with urllib.request.urlopen('http://127.0.0.1:8000/health',timeout=1) as r:
+                      data=json.load(r); assert data['paid_api_required'] is False; break
+              except Exception: time.sleep(.25)
+          else: raise SystemExit('API did not start')
+          req=urllib.request.Request('http://127.0.0.1:8000/v1/screen',data=json.dumps({'name':'Hiring copilot','purpose':'Rank candidates for employment interview progression decisions.','employment_decisions':True}).encode(),headers={'Content-Type':'application/json'})
+          with urllib.request.urlopen(req,timeout=2) as r:
+              data=json.load(r); assert data['decision']=='HUMAN_APPROVAL_REQUIRED'
+          print('FastAPI smoke passed')
+          PY
+      - name: Docker build
+        run: docker build -t aigate:test .
