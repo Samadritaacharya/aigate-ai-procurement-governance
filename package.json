@@ -1,0 +1,22 @@
+{
+  "name": "aigate-ai-procurement-governance",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=aigate-command-center",
+    "start": "npm run start --workspace=aigate-command-center",
+    "typecheck": "npm run typecheck --workspace=aigate-command-center",
+    "test": "npm test --workspace=aigate-command-center"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
