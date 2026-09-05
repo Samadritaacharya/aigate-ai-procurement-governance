@@ -2,8 +2,11 @@
 
 [![Python CI](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/backend-ci.yml)
 [![Interactive Web CI](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/Samadritaacharya/aigate-ai-procurement-governance/actions/workflows/frontend-ci.yml)
+[![Live App](https://img.shields.io/badge/Live_App-AIGate-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://aigate-ai-procurement-governance-git-fix-eea249-riria5779-4847.vercel.app/)
 
 > **From AI request to approved, governed and measurable production use.**
+
+**🚀 Live app:** https://aigate-ai-procurement-governance-git-fix-eea249-riria5779-4847.vercel.app/
 
 AIGate is a zero-key, portfolio-safe control plane for screening proposed AI systems, identifying evidence gaps, routing approvals, evaluating vendor readiness and quantifying business value. The central design rule is simple: **model reasoning may advise; deterministic policy owns authority.**
 
@@ -37,7 +40,7 @@ AIGate turns that lifecycle into an inspectable product workflow.
 | FastAPI production smoke | **Passed in GitHub Actions** |
 | Docker image build | **Passed in GitHub Actions** |
 | Responsive interactive UI | Working |
-| Vercel configuration | Ready; deploy `frontend/` |
+| Vercel deployment | **Live** |
 
 The 32-case result is a **regression result on a checked-in, hand-authored synthetic fixture**, not a production-accuracy or legal-classification claim.
 
@@ -79,6 +82,8 @@ pytest
 The evaluation measures only deterministic regression behavior on the checked-in synthetic set. It does **not** claim production accuracy or legal-classification accuracy.
 
 ## Web app
+
+**Live:** https://aigate-ai-procurement-governance-git-fix-eea249-riria5779-4847.vercel.app/
 
 ```bash
 cd frontend
