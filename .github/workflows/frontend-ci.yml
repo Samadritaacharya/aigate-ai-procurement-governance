@@ -2,9 +2,9 @@ name: Interactive Web CI
 on:
   push:
     branches: [main]
-    paths: ['frontend/**','.github/workflows/frontend-ci.yml']
+    paths: ['frontend/**','package.json','vercel.json','.github/workflows/frontend-ci.yml']
   pull_request:
-    paths: ['frontend/**','.github/workflows/frontend-ci.yml']
+    paths: ['frontend/**','package.json','vercel.json','.github/workflows/frontend-ci.yml']
 permissions:
   contents: read
 jobs:
@@ -26,6 +26,13 @@ jobs:
         run: npm test
       - name: Production build
         run: npm run build
+      - name: Vercel repository-root build
+        working-directory: ${{ github.workspace }}
+        run: |
+          rm -rf frontend/.next
+          npm install --no-audit --no-fund
+          npm run build
+          test -f frontend/.next/BUILD_ID
       - name: Boot and HTTP smoke test
         run: |
           npm start -- --hostname 127.0.0.1 --port 3000 >/tmp/aigate-web.log 2>&1 &
