@@ -1,0 +1,401 @@
+[
+  {
+    "id": "case-01",
+    "input": {
+      "name": "Internal knowledge assistant",
+      "purpose": "Answer internal policy questions from approved documents."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-02",
+    "input": {
+      "name": "Code review helper",
+      "purpose": "Suggest code-quality improvements without making deployment decisions."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-03",
+    "input": {
+      "name": "Invoice extraction",
+      "purpose": "Extract invoice fields for human review and ERP entry."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-04",
+    "input": {
+      "name": "Demand forecasting",
+      "purpose": "Forecast aggregate product demand for planners."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-05",
+    "input": {
+      "name": "Meeting summarizer",
+      "purpose": "Summarize internal meetings and suggest follow-up actions."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-06",
+    "input": {
+      "name": "Document classifier",
+      "purpose": "Classify internal procurement documents into workflow queues."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-07",
+    "input": {
+      "name": "IT ticket clustering",
+      "purpose": "Cluster support tickets to help service managers prioritize themes."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-08",
+    "input": {
+      "name": "Energy dashboard assistant",
+      "purpose": "Explain aggregate energy telemetry to facility teams."
+    },
+    "expected": {
+      "risk_band": "minimal",
+      "decision": "STANDARD_REVIEW"
+    }
+  },
+  {
+    "id": "case-09",
+    "input": {
+      "name": "Customer support chatbot",
+      "purpose": "Chat directly with customers and answer product questions.",
+      "chatbot_or_human_interaction": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-10",
+    "input": {
+      "name": "Citizen service chatbot",
+      "purpose": "Interact with residents to explain municipal service information.",
+      "chatbot_or_human_interaction": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-11",
+    "input": {
+      "name": "Synthetic marketing studio",
+      "purpose": "Generate synthetic campaign images and product copy.",
+      "synthetic_media_generation": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-12",
+    "input": {
+      "name": "AI onboarding concierge",
+      "purpose": "Guide employees through onboarding in a conversational interface.",
+      "chatbot_or_human_interaction": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-13",
+    "input": {
+      "name": "Video avatar generator",
+      "purpose": "Generate synthetic presenter videos for internal training.",
+      "synthetic_media_generation": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-14",
+    "input": {
+      "name": "Support bot with images",
+      "purpose": "Chat with users and generate synthetic support illustrations.",
+      "chatbot_or_human_interaction": true,
+      "synthetic_media_generation": true
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  },
+  {
+    "id": "case-15",
+    "input": {
+      "name": "CV ranking copilot",
+      "purpose": "Rank employment applicants and recommend who advances to interviews.",
+      "employment_decisions": true,
+      "personal_data": true,
+      "vendor": "External ATS AI"
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-16",
+    "input": {
+      "name": "University admissions scorer",
+      "purpose": "Score applicants for admission to a degree programme.",
+      "education_admissions": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-17",
+    "input": {
+      "name": "Credit access recommender",
+      "purpose": "Recommend eligibility for an essential retail credit service.",
+      "essential_services_decisions": true,
+      "personal_data": true,
+      "automated_external_decision": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-18",
+    "input": {
+      "name": "Face access verifier",
+      "purpose": "Identify individuals biometrically for controlled facility access.",
+      "biometric_identification": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-19",
+    "input": {
+      "name": "Grid safety controller",
+      "purpose": "Support safety decisions for critical electricity infrastructure.",
+      "critical_infrastructure_safety": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-20",
+    "input": {
+      "name": "Industrial robot safety AI",
+      "purpose": "Operate as a safety component in regulated industrial machinery.",
+      "regulated_product_safety_component": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-21",
+    "input": {
+      "name": "Promotion screening assistant",
+      "purpose": "Score employees for promotion and role movement decisions.",
+      "employment_decisions": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-22",
+    "input": {
+      "name": "School exam placement model",
+      "purpose": "Assess learners for placement into educational programmes.",
+      "education_admissions": true,
+      "personal_data": true,
+      "children_or_vulnerable_people": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-23",
+    "input": {
+      "name": "Insurance eligibility triage",
+      "purpose": "Support access decisions for an essential insurance service.",
+      "essential_services_decisions": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "high-risk-candidate",
+      "decision": "HUMAN_APPROVAL_REQUIRED"
+    }
+  },
+  {
+    "id": "case-24",
+    "input": {
+      "name": "Employee emotion detector",
+      "purpose": "Infer employee emotions from webcam video for workplace management.",
+      "workplace_emotion_recognition": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-25",
+    "input": {
+      "name": "Citizen social score",
+      "purpose": "Score citizens based on broad behaviour for service access decisions.",
+      "social_scoring": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-26",
+    "input": {
+      "name": "Sensitive trait biometric classifier",
+      "purpose": "Categorise people biometrically by sensitive personal traits.",
+      "biometric_sensitive_categorization": true,
+      "special_category_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-27",
+    "input": {
+      "name": "Subliminal sales optimizer",
+      "purpose": "Use subliminal manipulation techniques to steer vulnerable buyers.",
+      "manipulative_or_subliminal": true,
+      "children_or_vulnerable_people": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-28",
+    "input": {
+      "name": "Profile-only crime predictor",
+      "purpose": "Predict individual offending risk solely from personal profiling.",
+      "predictive_policing_profile_only": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-29",
+    "input": {
+      "name": "Emotion-based hiring filter",
+      "purpose": "Infer candidate emotions in interviews and use them for hiring.",
+      "workplace_emotion_recognition": true,
+      "employment_decisions": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-30",
+    "input": {
+      "name": "Social score lending gate",
+      "purpose": "Use broad social scoring to determine access to lending.",
+      "social_scoring": true,
+      "essential_services_decisions": true,
+      "personal_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-31",
+    "input": {
+      "name": "Sensitive biometric ad targeting",
+      "purpose": "Categorise sensitive traits biometrically for personalized ads.",
+      "biometric_sensitive_categorization": true,
+      "special_category_data": true
+    },
+    "expected": {
+      "risk_band": "prohibited-review",
+      "decision": "BLOCK_AND_LEGAL_REVIEW"
+    }
+  },
+  {
+    "id": "case-32",
+    "input": {
+      "name": "Customer claims chatbot",
+      "purpose": "Chat with customers about claims and route cases to human agents.",
+      "chatbot_or_human_interaction": true,
+      "personal_data": true,
+      "automated_external_decision": false
+    },
+    "expected": {
+      "risk_band": "transparency",
+      "decision": "CONTROL_REVIEW"
+    }
+  }
+]

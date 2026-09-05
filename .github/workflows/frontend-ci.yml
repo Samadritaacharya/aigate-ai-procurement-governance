@@ -1,0 +1,53 @@
+name: Interactive Web CI
+on:
+  push:
+    branches: [main]
+    paths: ['frontend/**','.github/workflows/frontend-ci.yml']
+  pull_request:
+    paths: ['frontend/**','.github/workflows/frontend-ci.yml']
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Deterministic engine tests
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Boot and HTTP smoke test
+        run: |
+          npm start -- --hostname 127.0.0.1 --port 3000 >/tmp/aigate-web.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          node <<'JS'
+          const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
+          async function wait(){for(let i=0;i<60;i++){try{const r=await fetch('http://127.0.0.1:3000/api/health');if(r.ok)return;}catch{}await sleep(250)}throw new Error('server did not start')}
+          await wait();
+          let r=await fetch('http://127.0.0.1:3000/'); if(!r.ok||!(await r.text()).includes('Move AI from request'))throw new Error('homepage smoke failed');
+          r=await fetch('http://127.0.0.1:3000/api/health'); let j=await r.json(); if(!r.ok||j.paid_api_required!==false)throw new Error('health failed');
+          r=await fetch('http://127.0.0.1:3000/api/evaluation'); j=await r.json(); if(j.cases!==32||j.risk_band_accuracy!==1||j.decision_accuracy!==1)throw new Error('evaluation failed');
+          for(const body of [
+            {name:'Knowledge assistant',purpose:'Answer internal questions using approved enterprise documentation.'},
+            {name:'Customer chatbot',purpose:'Chat directly with customers and answer product questions.',chatbot_or_human_interaction:true},
+            {name:'Hiring copilot',purpose:'Rank employment applicants and recommend interview progression.',employment_decisions:true},
+            {name:'Emotion detector',purpose:'Infer employee emotions from workplace video for management decisions.',workplace_emotion_recognition:true}
+          ]){r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!r.ok)throw new Error('scenario failed '+body.name)}
+          r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:'{broken'}); if(r.status!==400)throw new Error('malformed JSON was not rejected');
+          r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:'"hello"'}); if(r.status!==422)throw new Error('primitive JSON was not rejected');
+          r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({name:'x',purpose:'A sufficiently long use case purpose.',employment_decisions:'false'})}); if(r.status!==422)throw new Error('boolean confusion was not rejected');
+          r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({name:'x',purpose:'A sufficiently long use case purpose.',admin_override:true})}); if(r.status!==422)throw new Error('unknown field was not rejected');
+          const huge=JSON.stringify({name:'x',purpose:'a'.repeat(40000)}); r=await fetch('http://127.0.0.1:3000/api/screen',{method:'POST',headers:{'content-type':'application/json'},body:huge}); if(r.status!==413)throw new Error('oversized body was not rejected');
+          console.log('web smoke tests passed');
+          JS
